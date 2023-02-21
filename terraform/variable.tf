@@ -2,8 +2,16 @@
 variable "aws_region" {
   description = "AWS region"
   type        = string
-  default     = "us-east-1"
+  default     = "ap-southeast-1"
 }
+
+## AWS S3 bucket details
+variable "bucket_prefix" {
+  description = "Bucket prefix for our datalake"
+  type        = string
+  default     = "sde-data-lake-"
+}
+
 
 ## Key to allow connection to our EC2 instance
 variable "key_name" {
@@ -16,7 +24,7 @@ variable "key_name" {
 variable "instance_type" {
   description = "Instance type for EMR and EC2"
   type        = string
-  default     = "m4.xlarge"
+  default     = "t2.micro"
 }
 
 ## Alert email receiver
@@ -30,5 +38,24 @@ variable "alert_email_id" {
 variable "repo_url" {
   description = "Repository url to clone into production machine"
   type        = string
-  default     = "https://github.com/josephmachado/data_engineering_project_template.git"
+  default     = ".git"
+}
+
+## AWS Redshift credentials and node type
+variable "redshift_user" {
+  description = "AWS user name for Redshift"
+  type        = string
+  default     = "sde_user"
+}
+
+variable "redshift_password" {
+  description = "AWS password for Redshift"
+  type        = string
+  default     = "sdeP0ssword0987"
+}
+
+variable "redshift_node_type" {
+  description = "AWS Redshift node  type"
+  type        = string
+  default     = "dc2.large"
 }

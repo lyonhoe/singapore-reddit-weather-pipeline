@@ -50,11 +50,9 @@ x-airflow-common:
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__API__AUTH_BACKEND: 'airflow.api.auth.backend.basic_auth'
     AIRFLOW_CONN_POSTGRES_DEFAULT: postgres://airflow:airflow@postgres:5432/airflow
-    WAREHOUSE_USER: ${POSTGRES_USER}
-    WAREHOUSE_PASSWORD: ${POSTGRES_PASSWORD}
-    WAREHOUSE_DB: ${POSTGRES_DB}
-    WAREHOUSE_HOST: ${POSTGRES_HOST}
-    WARREHOUSE_PORT: ${POSTGRES_PORT}
+    AIRFLOW_CONN_REDSHIFT: ${AIRFLOW_CONN_REDSHIFT}
+    AIRFLOW_CONN_AWS_DEFAULT: ${AIRFLOW_CONN_AWS_DEFAULT}
+    AIRFLOW_VAR_BUCKET: ${AIRFLOW_VAR_BUCKET}
 
   volumes:
     - ./dags:/opt/airflow/dags
@@ -63,6 +61,7 @@ x-airflow-common:
     - ./tests:/opt/airflow/tests
     - ./temp:/opt/airflow/temp
     - ./migrations:/opt/airflow/migrations
+    - ./spectrum_tables:/opt/airflow/spectrum_tables
   user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
   depends_on:
     postgres:
@@ -76,6 +75,9 @@ services:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
+    volumes:
+      - ./temp:/temp
+      - ./spectrum_tables:/opt/airflow/spectrum_tables
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "airflow" ]
       interval: 5s
@@ -133,18 +135,3 @@ services:
     container_name: dashboard
     ports:
       - "3000:3000"
-
-  warehouse:
-    image: postgres:13
-    container_name: warehouse
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "${POSTGRES_USER}" ]
-      interval: 5s
-      retries: 5
-    restart: always
-    ports:
-      - "5439:5432"
