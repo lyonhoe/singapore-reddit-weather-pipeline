@@ -5,10 +5,24 @@ dashboard visualisation.
 
 
 
-**Data infrastructure**
+# Data infrastructure
 ![DE Infra](/assets/images/data_proj_flowchart.jpg)
 
 AWS cloud infrastructure is provisioned through Terraform, orchestrated through Airflow, containerised through Docker and output is visualised through Metabase.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 For the [continuous delivery](https://github.com/josephmachado/data_engineering_project_template/blob/main/.github/workflows/cd.yml) to work, set up the infrastructure with terraform, & defined the following repository secrets. You can set up the repository secrets by going to `Settings > Secrets > Actions > New repository secret`.
 
