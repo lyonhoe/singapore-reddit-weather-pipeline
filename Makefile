@@ -4,10 +4,10 @@
 docker-spin-up:
 	docker compose --env-file env up airflow-init && docker compose --env-file env up --build -d
 
-# perms:
-# 	sudo mkdir -p logs plugins temp dags tests && sudo chmod -R u=rwx,g=rwx,o=rwx logs plugins temp dags tests
+perms:
+	sudo mkdir -p logs plugins temp dags tests && sudo chmod -R u=rwx,g=rwx,o=rwx logs plugins temp dags tests
 
-up: docker-spin-up
+up: perms docker-spin-up
 
 down:
 	docker compose down
