@@ -6,11 +6,8 @@ dashboard visualisation.
 
 
 **Data infrastructure**
-![DE Infra](/assets/images/infra.png)
+![DE Infra](/assets/images/data_proj_flowchart.jpg)
 
-**Project structure**
-![Project structure](/assets/images/proj_1.png)
-![Project structure - GH actions](/assets/images/proj_2.png)
 
 Database migrations can be created as shown below.
 
