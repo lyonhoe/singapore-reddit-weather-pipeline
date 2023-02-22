@@ -1,4 +1,4 @@
-# Singapore reddit and weather correlation ELT pipeline
+## Singapore reddit and weather correlation ELT pipeline
 
 End to end pipeline that extracts data from reddit (pushshift api) and open-meteo weather api to check for effects of weather on reddit post sentiment via Metabase 
 dashboard visualisation.
@@ -10,11 +10,12 @@ dashboard visualisation.
 
 AWS cloud infrastructure is provisioned through Terraform, orchestrated through Airflow, containerised through Docker and output is visualised through Metabase.
 
+# Dashboard
 
 
+# Steps to start Pipeline
 
-
-
+1. 
 
 
 
