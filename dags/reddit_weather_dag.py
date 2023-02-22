@@ -165,6 +165,13 @@ weather_data_to_stage_data_lake = PythonOperator(
     }
 )
 
+create_spectrum_tables = PostgresOperator(
+    dag=dag,
+    task_id="create_spectrum_tables",
+    sql="./tasks/create_spectrum_tables.sql",
+    postgres_conn_id="redshift",
+)
+
 weather_data_stage_data_lake_to_stage_tbl = PythonOperator(
     dag=dag,
     task_id="weather_data_stage_data_lake_to_stage_tbl",
@@ -184,7 +191,9 @@ generate_weather_reddit_correlation_data = PostgresOperator(
     postgres_conn_id="redshift",
 )
 
-is_api_available_weather >> create_table_weather >> load_weather_data_postgres >> extract_weather_data_from_postgres >> weather_data_to_stage_data_lake >> weather_data_stage_data_lake_to_stage_tbl
-is_api_available_reddit >> create_table_reddit >> load_reddit_data >> extract_reddit_data_from_postgres >> reddit_data_to_stage_data_lake >> reddit_data_stage_data_lake_to_stage_tbl
+is_api_available_weather >> create_table_weather >> load_weather_data_postgres >> extract_weather_data_from_postgres >> weather_data_to_stage_data_lake 
+is_api_available_reddit >> create_table_reddit >> load_reddit_data >> extract_reddit_data_from_postgres >> reddit_data_to_stage_data_lake 
 
-[weather_data_stage_data_lake_to_stage_tbl,reddit_data_stage_data_lake_to_stage_tbl] >> generate_weather_reddit_correlation_data
+[ weather_data_to_stage_data_lake,reddit_data_to_stage_data_lake] >> create_spectrum_tables
+
+create_spectrum_tables >> [weather_data_stage_data_lake_to_stage_tbl,reddit_data_stage_data_lake_to_stage_tbl] >> generate_weather_reddit_correlation_data
