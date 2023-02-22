@@ -19,19 +19,19 @@ provider "aws" {
 }
 
 # Create our S3 bucket (Datalake)
-resource "aws_s3_bucket" "sde-data-lake" {
+resource "aws_s3_bucket" "reddit_weather-data-lake" {
   bucket_prefix = var.bucket_prefix
   force_destroy = true
 }
 
-resource "aws_s3_bucket_acl" "sde-data-lake-acl" {
-  bucket = aws_s3_bucket.sde-data-lake.id
+resource "aws_s3_bucket_acl" "reddit_weather-data-lake-acl" {
+  bucket = aws_s3_bucket.reddit_weather-data-lake.id
   acl    = "public-read-write"
 }
 
 # IAM role for EC2 to connect to AWS Redshift, S3, & EMR
-resource "aws_iam_role" "sde_ec2_iam_role" {
-  name = "sde_ec2_iam_role"
+resource "aws_iam_role" "reddit_weather_ec2_iam_role" {
+  name = "reddit_weather_ec2_iam_role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -48,14 +48,14 @@ resource "aws_iam_role" "sde_ec2_iam_role" {
   managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3FullAccess", "arn:aws:iam::aws:policy/AmazonEMRFullAccessPolicy_v2", "arn:aws:iam::aws:policy/AmazonRedshiftAllCommandsFullAccess"]
 }
 
-resource "aws_iam_instance_profile" "sde_ec2_iam_role_instance_profile" {
-  name = "sde_ec2_iam_role_instance_profile"
+resource "aws_iam_instance_profile" "reddit_weather_ec2_iam_role_instance_profile" {
+  name = "reddit_weather_ec2_iam_role_instance_profile"
   role = aws_iam_role.sde_ec2_iam_role.name
 }
 
 # IAM role for Redshift to be able to read data from S3 via Spectrum
-resource "aws_iam_role" "sde_redshift_iam_role" {
-  name = "sde_redshift_iam_role"
+resource "aws_iam_role" "reddit_weather_iam_role" {
+  name = "reddit_weather_redshift_iam_role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
