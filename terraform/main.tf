@@ -19,12 +19,12 @@ provider "aws" {
 }
 
 # Create our S3 bucket (Datalake)
-resource "aws_s3_bucket" "reddit_weather-data-lake" {
+resource "aws_s3_bucket" "reddit-weather-data-lake" {
   bucket_prefix = var.bucket_prefix
   force_destroy = true
 }
 
-resource "aws_s3_bucket_acl" "reddit_weather-data-lake-acl" {
+resource "aws_s3_bucket_acl" "reddit-weather-data-lake-acl" {
   bucket = aws_s3_bucket.reddit_weather-data-lake.id
   acl    = "public-read-write"
 }
@@ -50,7 +50,7 @@ resource "aws_iam_role" "reddit_weather_ec2_iam_role" {
 
 resource "aws_iam_instance_profile" "reddit_weather_ec2_iam_role_instance_profile" {
   name = "reddit_weather_ec2_iam_role_instance_profile"
-  role = aws_iam_role.sde_ec2_iam_role.name
+  role = aws_iam_role.reddit_weather_ec2_iam_role.name
 }
 
 # IAM role for Redshift to be able to read data from S3 via Spectrum
@@ -74,8 +74,8 @@ resource "aws_iam_role" "reddit_weather_iam_role" {
 
 
 # Create security group for access to EC2 from your Anywhere
-resource "aws_security_group" "sde_security_group" {
-  name        = "sde_security_group"
+resource "aws_security_group" "reddit_weather_security_group" {
+  name        = "reddit_weather_security_group"
   description = "Security group to allow inbound SCP & outbound 8080 (Airflow) connections"
 
   ingress {
@@ -107,19 +107,19 @@ resource "aws_security_group" "sde_security_group" {
 
 # Set up Redshift
 resource "aws_redshift_cluster" "sde_redshift_cluster" {
-  cluster_identifier  = "sde-redshift-cluster"
+  cluster_identifier  = "reddit-weather-redshift-cluster"
   master_username     = var.redshift_user
   master_password     = var.redshift_password
   port                = 5439
   node_type           = var.redshift_node_type
   cluster_type        = "single-node"
-  iam_roles           = [aws_iam_role.sde_redshift_iam_role.arn]
+  iam_roles           = [aws_iam_role.reddit_weather_redshift_iam_role.arn]
   skip_final_snapshot = true
 }
 
 # Create Redshift spectrum schema
 provider "redshift" {
-  host     = aws_redshift_cluster.sde_redshift_cluster.dns_name
+  host     = aws_redshift_cluster.reddit_weather_redshift_cluster.dns_name
   username = var.redshift_user
   password = var.redshift_password
   database = "dev"
@@ -133,7 +133,7 @@ resource "redshift_schema" "external_from_glue_data_catalog" {
     database_name = "spectrum"
     data_catalog_source {
       region                                 = var.aws_region
-      iam_role_arns                          = [aws_iam_role.sde_redshift_iam_role.arn]
+      iam_role_arns                          = [aws_iam_role.reddit_weather_redshift_iam_role.arn]
       create_external_database_if_not_exists = true
     }
   }
@@ -167,14 +167,14 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-resource "aws_instance" "sde_ec2" {
+resource "aws_instance" "reddit_weather_ec2" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
 
   key_name        = aws_key_pair.generated_key.key_name
-  security_groups = [aws_security_group.sde_security_group.name]
+  security_groups = [aws_security_group.reddit_weather_security_group.name]
   tags = {
-    Name = "sde_ec2"
+    Name = "reddit_weather_ec2"
   }
 
   user_data = <<EOF
@@ -206,8 +206,8 @@ sudo apt install make
 echo 'Clone git repo to EC2'
 cd /home/ubuntu && git clone ${var.repo_url}
 
-echo 'CD to data_engineering_project_template directory'
-cd data_engineering_project_template
+echo 'CD to data_engineering_proj_one'
+cd data_engineering_proj_one
 
 echo 'Start containers & Run db migrations'
 make up

@@ -38,7 +38,7 @@ variable "alert_email_id" {
 variable "repo_url" {
   description = "Repository url to clone into production machine"
   type        = string
-  default     = ".git"
+  default     = "https://github.com/lyonhoe/data_engineering_proj_one.git"
 }
 
 ## AWS Redshift credentials and node type
