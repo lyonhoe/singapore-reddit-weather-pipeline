@@ -135,3 +135,6 @@ services:
     container_name: dashboard
     ports:
       - "3000:3000"
+
+  volumes:
+  postgres-db-volume:
