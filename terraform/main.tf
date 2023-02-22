@@ -25,7 +25,7 @@ resource "aws_s3_bucket" "reddit-weather-data-lake" {
 }
 
 resource "aws_s3_bucket_acl" "reddit-weather-data-lake-acl" {
-  bucket = aws_s3_bucket.reddit_weather-data-lake.id
+  bucket = aws_s3_bucket.reddit-weather-data-lake.id
   acl    = "public-read-write"
 }
 
@@ -101,12 +101,12 @@ resource "aws_security_group" "reddit_weather_security_group" {
   }
 
   tags = {
-    Name = "sde_security_group"
+    Name = "reddit_weather_security_group"
   }
 }
 
 # Set up Redshift
-resource "aws_redshift_cluster" "sde_redshift_cluster" {
+resource "aws_redshift_cluster" "reddit_weather_redshift_cluster" {
   cluster_identifier  = "reddit-weather-redshift-cluster"
   master_username     = var.redshift_user
   master_password     = var.redshift_password
