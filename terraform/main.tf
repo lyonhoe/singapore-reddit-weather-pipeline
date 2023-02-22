@@ -54,7 +54,7 @@ resource "aws_iam_instance_profile" "reddit_weather_ec2_iam_role_instance_profil
 }
 
 # IAM role for Redshift to be able to read data from S3 via Spectrum
-resource "aws_iam_role" "reddit_weather_iam_role" {
+resource "aws_iam_role" "reddit_weather_redshift_iam_role" {
   name = "reddit_weather_redshift_iam_role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

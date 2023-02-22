@@ -9,7 +9,7 @@ variable "aws_region" {
 variable "bucket_prefix" {
   description = "Bucket prefix for our datalake"
   type        = string
-  default     = "sde-data-lake-"
+  default     = "singapore-weather-reddit"
 }
 
 
@@ -45,13 +45,13 @@ variable "repo_url" {
 variable "redshift_user" {
   description = "AWS user name for Redshift"
   type        = string
-  default     = "sde_user"
+  default     = "awsuser"
 }
 
 variable "redshift_password" {
   description = "AWS password for Redshift"
   type        = string
-  default     = "sdeP0ssword0987"
+  default     = "Awsuser11"
 }
 
 variable "redshift_node_type" {
