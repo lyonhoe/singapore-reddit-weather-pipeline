@@ -13,6 +13,11 @@ AWS cloud infrastructure is provisioned through Terraform, orchestrated through 
 # Dashboard
 
 
-# Steps to start Pipeline
+# Pipeline Flow
 
-1. 
+1. Data is extracted from both Reddit and Open-Meteo API
+2. Reddit post title is analyzed using a Sentiment Analyzer and sentiment statistics is added to raw data
+3. Both reddit and weather data are loaded into a Postgres OLTP database
+4. Selected data are pulled from Postgres and loaded into s3 bucket
+5. Data is combined and transformed via Redshift spectrum
+6. Final data visualised through Metabase
