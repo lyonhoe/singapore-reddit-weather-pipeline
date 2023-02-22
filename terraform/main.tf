@@ -182,22 +182,30 @@ resource "aws_instance" "reddit_weather_ec2" {
 
 echo "-------------------------START AIRFLOW SETUP---------------------------"
 sudo apt-get -y update
+
 sudo apt-get -y install \
 ca-certificates \
 curl \
 gnupg \
 lsb-release
+
 sudo apt -y install unzip
+
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
 sudo apt-get -y update
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 sudo chmod 666 /var/run/docker.sock
+
 sudo apt install make
+
 echo 'Clone git repo to EC2'
 cd /home/ubuntu && git clone https://github.com/lyonhoe/data_engineering_proj_one.git && cd data_engineering_proj_one && make perms
+
 echo 'Setup Airflow environment variables'
 echo "
 AIRFLOW_CONN_REDSHIFT=postgres://${var.redshift_user}:${var.redshift_password}@${aws_redshift_cluster.reddit_weather_redshift_cluster.endpoint}/dev
@@ -205,6 +213,7 @@ AIRFLOW_CONN_POSTGRES_DEFAULT=postgres://airflow:airflow@localhost:5439/airflow
 AIRFLOW_CONN_AWS_DEFAULT=aws://?region_name=${var.aws_region}
 AIRFLOW_VAR_BUCKET=${aws_s3_bucket.reddit-weather-data-lake.id}
 " > env
+
 echo 'Start Airflow containers'
 make up
 
