@@ -108,6 +108,3 @@ def insert_reddit_data():
 def run_reddit():
     with WarehouseConnection(get_warehouse_creds()).managed_cursor() as curr:
         p.execute_batch(curr, insert_reddit_data(), reddit_data_dict())
-
-if __name__ == '__main__':
-    run_reddit()

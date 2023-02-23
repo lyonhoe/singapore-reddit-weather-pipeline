@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 import pendulum
 from tasks.aws.postgres_to_s3 import _local_to_s3
 from tasks.aws.redshift_con import run_redshift_external_query
-from tasks.scripts import (pull_reddit_api_to_postgres,
-                           pull_weather_api_to_postgres)
+from tasks.scripts.pull_reddit_api_to_postgres import run_reddit
+from tasks.scripts.pull_weather_api_to_postgres import run_weather
 
 from airflow import DAG
 from airflow.models import Variable
@@ -72,7 +72,7 @@ create_table_reddit = PostgresOperator(
 load_reddit_data = PythonOperator(
         dag = dag,
         task_id = 'store_reddit_data_postgres',
-        python_callable= pull_reddit_api_to_postgres
+        python_callable= run_reddit
 
     )
 
@@ -139,9 +139,8 @@ create_table_weather = PostgresOperator(
 load_weather_data_postgres = PythonOperator(
     dag=dag,
     task_id="store_weather_data_postgres",
-    python_callable= pull_weather_api_to_postgres
+    python_callable= run_weather
 )
-
 
 extract_weather_data_from_postgres = PostgresOperator(
     dag=dag,

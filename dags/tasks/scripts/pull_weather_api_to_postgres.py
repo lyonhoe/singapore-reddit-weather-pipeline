@@ -49,6 +49,3 @@ def _get_exchange_insert_query():
 def run_weather():
     with WarehouseConnection(get_warehouse_creds()).managed_cursor() as curr:
         p.execute_batch(curr, _get_exchange_insert_query(), weather_data_dict())
-
-if __name__ == '__main__':
-    run_weather()
