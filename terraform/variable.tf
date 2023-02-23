@@ -22,9 +22,9 @@ variable "key_name" {
 
 ## EC2 instance type
 variable "instance_type" {
-  description = "Instance type for EMR and EC2"
+  description = "Instance type for EC2"
   type        = string
-  default     = "t2.micro"
+  default     = "t3.medium"
 }
 
 ## Alert email receiver
