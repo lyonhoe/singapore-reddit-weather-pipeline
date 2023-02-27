@@ -204,7 +204,7 @@ sudo chmod 666 /var/run/docker.sock
 sudo apt install make
 
 echo 'Clone git repo to EC2'
-cd /home/ubuntu && git clone https://github.com/lyonhoe/singapore-reddit-weather-pipeline.git && cd data_engineering_proj_one && make perms
+cd /home/ubuntu && git clone https://github.com/lyonhoe/singapore-reddit-weather-pipeline.git && cd singapore-reddit-weather-pipeline && make perms
 
 echo 'Setup Airflow environment variables'
 echo "
