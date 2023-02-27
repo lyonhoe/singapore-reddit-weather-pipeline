@@ -79,7 +79,7 @@ load_reddit_data = PythonOperator(
 extract_reddit_data_from_postgres = PostgresOperator(
     dag=dag,
     task_id="extract_reddit_data_from_postgres",
-    sql="./tasks/extract_reddit_data_postgres.sql",
+    sql="./tasks/sql/extract_reddit_data_postgres.sql",
     postgres_conn_id="postgres",
     params={
         "extract_reddit_data": "/temp/extract_reddit_data.csv"
@@ -145,7 +145,7 @@ load_weather_data_postgres = PythonOperator(
 extract_weather_data_from_postgres = PostgresOperator(
     dag=dag,
     task_id="extract_weather_data_from_postgres",
-    sql="./tasks/extract_weather_data_postgres.sql",
+    sql="./tasks/sql/extract_weather_data_postgres.sql",
     postgres_conn_id="postgres",
     params={
         "extract_weather_data": "/temp/extract_weather_data.csv"
@@ -167,7 +167,7 @@ weather_data_to_stage_data_lake = PythonOperator(
 create_spectrum_tables = PostgresOperator(
     dag=dag,
     task_id="create_spectrum_tables",
-    sql="./tasks/create_spectrum_tables.sql",
+    sql="./tasks/sql/create_spectrum_tables.sql",
     postgres_conn_id="redshift",
 )
 
@@ -186,7 +186,7 @@ weather_data_stage_data_lake_to_stage_tbl = PythonOperator(
 generate_weather_reddit_correlation_data = PostgresOperator(
     dag=dag,
     task_id="generate_weather_reddit_correlation_data",
-    sql="./tasks/generate_correlation_data.sql",
+    sql="./tasks/sql/generate_correlation_data.sql",
     postgres_conn_id="redshift",
 )
 
