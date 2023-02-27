@@ -11,7 +11,7 @@ dashboard visualisation.
 AWS cloud infrastructure is provisioned through Terraform, orchestrated through Airflow, containerised through Docker and output is visualised through Metabase.
 
 # Dashboard
-
+![DE Infra](/assets/images/reddit_weather_dashboard.png)
 
 # Pipeline Flow
 
