@@ -115,6 +115,7 @@ resource "aws_redshift_cluster" "reddit_weather_redshift_cluster" {
   cluster_type        = "single-node"
   iam_roles           = [aws_iam_role.reddit_weather_redshift_iam_role.arn]
   skip_final_snapshot = true
+  database_name       = "dev"
 }
 
 # Create Redshift spectrum schema
