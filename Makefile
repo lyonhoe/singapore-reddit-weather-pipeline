@@ -54,7 +54,7 @@ infra-config:
 # Create tables in Redshift and Redshift spectrum
 
 spectrum-migration:
-	./aws_migrate.sh
+	./aws_migration.sh
 
 ####################################################################################################################
 # Port forwarding to local machine
