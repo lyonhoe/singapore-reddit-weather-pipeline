@@ -210,7 +210,6 @@ echo 'Setup Airflow environment variables'
 echo "
 AIRFLOW_CONN_REDSHIFT=postgres://${var.redshift_user}:${var.redshift_password}@${aws_redshift_cluster.reddit_weather_redshift_cluster.endpoint}/dev
 AIRFLOW_CONN_POSTGRES=postgres://airflow:airflow@postgres:5432
-AIRFLOW_CONN_AWS_DEFAULT=aws://?region_name=${var.aws_region}
 AIRFLOW_CONN_IS_API_AVAILABLE_REDDIT=http://https%3A%2F%2Fapi.pushshift.io%2F
 AIRFLOW_CONN_IS_API_AVAILABLE_WEATHER=http://https%3A%2F%2Fapi.open-meteo.com%2F
 AIRFLOW_VAR_BUCKET=${aws_s3_bucket.reddit-weather-data-lake.id}
