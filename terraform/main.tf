@@ -173,6 +173,7 @@ resource "aws_instance" "reddit_weather_ec2" {
 
   key_name        = aws_key_pair.generated_key.key_name
   security_groups = [aws_security_group.reddit_weather_security_group.name]
+  iam_instance_profile = aws_iam_instance_profile.reddit_weather_ec2_iam_role_instance_profile.id
   tags = {
     Name = "reddit_weather_ec2"
   }
