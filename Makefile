@@ -51,6 +51,13 @@ infra-config:
 	terraform -chdir=./terraform output
 
 ####################################################################################################################
+# Create tables in Warehouse
+spectrum-migration:
+	./spectrum_migrate.sh
+
+	
+
+####################################################################################################################
 # Port forwarding to local machine
 
 cloud-metabase:
