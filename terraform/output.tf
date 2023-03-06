@@ -10,7 +10,7 @@ output "ec2_public_dns" {
 
 output "redshift_dns_name" {
   description = "Redshift DNS name."
-  value       = aws_redshift_cluster.sde_redshift_cluster.dns_name
+  value       = aws_redshift_cluster.reddit_weather_redshift_cluster.dns_name
 }
 
 output "redshift_user" {

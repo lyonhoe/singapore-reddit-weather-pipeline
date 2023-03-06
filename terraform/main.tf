@@ -22,14 +22,12 @@ provider "aws" {
 resource "aws_s3_bucket" "reddit-weather-data-lake" {
   bucket = "singapore-weather-reddit"
   force_destroy = true
-  acl = "public-read-write"
 }
 
-# resource "aws_s3_bucket_acl" "reddit-weather-data-lake-acl" {
-#   bucket = aws_s3_bucket.reddit-weather-data-lake.id
-#   acl    = "public-read-write"
-# }
-# use bucket_prefix = var.bucket_prefix if you have a lot of buckets
+resource "aws_s3_bucket_acl" "reddit-weather-data-lake-acl" {
+  bucket = aws_s3_bucket.reddit-weather-data-lake.id
+  acl    = "public-read-write"
+}
 
 # IAM role for EC2 to connect to AWS Redshift, S3, & EMR
 resource "aws_iam_role" "reddit_weather_ec2_iam_role" {
