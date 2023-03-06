@@ -51,11 +51,10 @@ infra-config:
 	terraform -chdir=./terraform output
 
 ####################################################################################################################
-# Create tables in Warehouse
-spectrum-migration:
-	./spectrum_migrate.sh
+# Create tables in Redshift and Redshift spectrum
 
-	
+spectrum-migration:
+	./aws_migrate.sh
 
 ####################################################################################################################
 # Port forwarding to local machine

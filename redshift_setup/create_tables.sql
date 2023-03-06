@@ -1,4 +1,4 @@
-CREATE EXTERNAL TABLE IF NOT EXISTS spectrum.reddit_data_staging (
+CREATE EXTERNAL TABLE spectrum.reddit_data_staging (
    Title VARCHAR(max),
    Created_gmt TIMESTAMP,
    Author VARCHAR(100),
@@ -8,7 +8,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS spectrum.reddit_data_staging (
    Label INT
 ) PARTITIONED BY (insert_datetime TIMESTAMP) ROW FORMAT DELIMITED FIELDS TERMINATED BY '~' STORED AS textfile LOCATION 's3://singaporeweather/stage/reddit_data/' TABLE PROPERTIES ('skip.header.line.count' = '1');
 
-CREATE EXTERNAL TABLE IF NOT EXISTS spectrum.weather_data_staging (
+CREATE EXTERNAL TABLE spectrum.weather_data_staging (
    Temperature DECIMAL(4, 2),
    Windspeed DECIMAL(4, 2),
    Winddirection DECIMAL(5, 2),

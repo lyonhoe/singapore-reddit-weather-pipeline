@@ -5,14 +5,6 @@ variable "aws_region" {
   default     = "ap-southeast-1"
 }
 
-## AWS S3 bucket details
-variable "bucket_prefix" {
-  description = "Bucket prefix for our datalake"
-  type        = string
-  default     = "singapore-weather-reddit"
-}
-
-
 ## Key to allow connection to our EC2 instance
 variable "key_name" {
   description = "EC2 key name"
@@ -38,7 +30,7 @@ variable "alert_email_id" {
 variable "repo_url" {
   description = "Repository url to clone into production machine"
   type        = string
-  default     = "https://github.com/lyonhoe/data_engineering_proj_one.git"
+  default     = "https://github.com/lyonhoe/singapore-reddit-weather-pipeline.git"
 }
 
 ## AWS Redshift credentials and node type
