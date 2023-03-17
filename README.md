@@ -24,6 +24,7 @@ AWS cloud infrastructure is provisioned through Terraform, orchestrated through 
 
 # Instructions to setup
 
+```shell
 1. make tf-init # if you added new providers
 2. make infra-up # set up infra on AWS cloud. Wait for about 5 minutes before proceeding
 3. make spectrum-migration # setup tables on Redshift and Redshift Spectrum
