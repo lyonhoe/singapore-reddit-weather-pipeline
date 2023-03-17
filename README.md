@@ -1,6 +1,6 @@
 ## Singapore reddit and weather correlation ETL pipeline
 
-End to end pipeline that extracts data from reddit (pushshift api) and open-meteo weather api to check for effects of weather on reddit post sentiment via Metabase 
+End to end pipeline that extracts data from reddit using the [pushshift api](https://github.com/pushshift/api) and [open-meteo weather api](https://open-meteo.com/en/docs) to check for effects of weather on reddit post sentiment via Metabase 
 dashboard visualisation.
 
 
